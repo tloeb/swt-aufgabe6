@@ -38,7 +38,7 @@ public class XmlIoImpl implements XmlIo{
         SAXBuilder builder = new SAXBuilder();
         Document document = builder.build(in);
         Element rootNode = document.getRootElement();
-        List xmlList = rootNode.getChildren("products");
+        List xmlList = rootNode.getChildren("product");
         for( Object o : xmlList) {
             Element e = (Element) o ;
             int id = Integer.parseInt(e.getChildText("id"));
@@ -52,6 +52,12 @@ public class XmlIoImpl implements XmlIo{
 
     @Override
     public Product getProduct(InputStream in, Integer id) throws Exception {
+    	List<Product> productList = readProducts(in);
+    	for (Product product : productList) {
+			if (product.getId() == id) {
+				return product;
+			}
+		}
         return null;
     }
 
