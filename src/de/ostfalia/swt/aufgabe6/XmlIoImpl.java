@@ -57,6 +57,10 @@ public class XmlIoImpl implements XmlIo{
 
     @Override
     public void increasePrices(InputStream in, OutputStream out, BigDecimal percent) throws Exception {
-
+    List<Product> productList = readProducts(in);
+        for (Product p : productList) {
+            p.setPrice(percent.multiply(p.getPrice()));
+        }
+    writeProducts(productList, out);
     }
 }
